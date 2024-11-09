@@ -35,14 +35,14 @@ const SnnPage = () => {
     formData.append('image2', image2);
 
     try {
-      const response = await axios.post('http://localhost:5000/process_snn', formData, {
+      const response = await axios.post('http://localhost:5000/snn-upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
-      setResult(`data:image/jpeg;base64,${response.data.result_image}`);
-      setMessage(`Score: ${response.data.score}`);
+      setResult(`data:image/jpeg;base64,${response.data.processed_image}`);
+      setMessage(`Score: ${response.data.score}, Match: ${response.data.match}`);
     } catch (error) {
       console.error('Error processing the images:', error);
     } finally {
