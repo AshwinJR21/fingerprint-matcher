@@ -1,0 +1,41 @@
+/* Navbar CSS */
+.navbar {
+  display: flex;
+  width: 100%;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;            
+  background-color: #333;
+  color: white;
+  z-index: 100;
+  justify-content: center;
+}
+
+.navbar-links {
+  list-style-type: none;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.navbar-links li {
+  display: inline;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar-links a:hover {
+  color: #ddd;
+}
+.container {
+  padding-top: 80px; /* Adjust based on navbar height */
+}
+
+

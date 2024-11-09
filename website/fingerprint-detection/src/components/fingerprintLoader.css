@@ -1,0 +1,40 @@
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    z-index: 1000;
+  }
+  
+  .fingerprint {
+    position: relative;
+    width: 100px;
+    height: 100px;
+  }
+  
+  .fingerprint-svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .fingerprint-fill {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #007bff;
+    transition: height 0.3s ease;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .visible {
+    display: flex;
+  }
+  
