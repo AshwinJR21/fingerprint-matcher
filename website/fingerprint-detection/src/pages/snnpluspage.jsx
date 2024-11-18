@@ -7,6 +7,8 @@ const Snnpluspage = () => {
   const [resultImage, setResultImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(''); // To display the backend message like filename and score
+  const[personDetails, setPersonDetails] =  useState([]);
+
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -14,6 +16,7 @@ const Snnpluspage = () => {
     setPreviewImage(URL.createObjectURL(file)); // Show a preview of the uploaded image
     setResultImage(null); // Clear any previous result image
     setMessage(''); // Clear any previous message
+    setPersonDetails('');
   };
 
   const handleSubmit = async () => {
@@ -35,6 +38,14 @@ const Snnpluspage = () => {
       // Set the result image and message (filename, score)
       setResultImage(`data:image/jpeg;base64,${response.data.processed_image}`);
       setMessage(`Score: ${response.data.score}`);
+      setPersonDetails([`Name: ${response.data.name}`,
+        `Gender: ${response.data.gender}`,
+        `Hand: ${response.data.lr}`,
+        `Finger: ${response.data.finger}`,
+        `Date of Birth: ${response.data.dob}`,
+        `Country: ${response.data.country}`,
+        `Phone: ${response.data.phone}`,
+        `Address: ${response.data.address}`])
 
     } catch (error) {
       console.error('Error processing the image:', error);
@@ -50,11 +61,12 @@ const Snnpluspage = () => {
     setResultImage(null);
     setMessage('');
     setLoading(false);
+    setPersonDetails('');
   };
 
   return (
     <div className="siftpage">
-      <h1>Fingerprint Matcher</h1>
+      <h1>Feature Comparison Fingerprint Matcher</h1>
 
       {/* Image upload input */}
       <input type="file" onChange={handleImageChange} accept="image/*" />
@@ -94,6 +106,21 @@ const Snnpluspage = () => {
 
       {/* Display backend message (filename and score) */}
       {message && <p>{message}</p>}
+
+      {personDetails && (
+        <div>
+          <ul><h2>Person Details</h2>
+            <li>{personDetails[0]}</li>
+            <li>{personDetails[1]}</li>
+            <li>{personDetails[2]}</li>
+            <li>{personDetails[3]}</li>
+            <li>{personDetails[4]}</li>
+            <li>{personDetails[5]}</li>
+            <li>{personDetails[6]}</li>
+            <li>{personDetails[7]}</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

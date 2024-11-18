@@ -1,11 +1,18 @@
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 from keras import models
 import numpy as np
 from PIL import Image
 import cv2 as cv
+from matplotlib import use
 import matplotlib.pyplot as plt
+use('Agg')  # Use a backend suitable for server-side rendering
 from flask import jsonify
 import io
 import base64
+import time
+
+model = models.load_model('SNN_model.h5', compile=False)
 
 def show(name, img):
     cv.imshow(name, img)
@@ -27,13 +34,13 @@ def result_return(image1, image2, score, match, prediction):
     plt.close()
     ret = base64.b64encode(buf.getvalue()).decode('utf-8')
     buf.close()
+
     return jsonify({'processed_image': ret,
                     'match': match,
                     'score': float(prediction[0][0])})
 
 def SNN_process(image1, image2, threshold=0.8):
-    model = models.load_model('SNN_model.h5')
-
+    ts = time.time()
     image1 = Image.open(image1).convert('L')
     image1 = cv.resize(np.array(image1), (90, 90))
     image1 = np.expand_dims(image1, axis=0)
@@ -49,5 +56,6 @@ def SNN_process(image1, image2, threshold=0.8):
     prediction = model.predict([image1, image2])
 
     match = True if prediction > threshold else False
-
+    te = time.time()
+    print("time taken for SNN model", round(te - ts, 4), " s")
     return result_return(image1, image2, prediction[0][0], match, prediction)
